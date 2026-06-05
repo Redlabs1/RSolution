@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="RSolution/RSolution.vcxproj" Id="a69f0ca1-7fdb-4820-b46c-f9cf63cfaeb5">
+    <Deploy />
+  </Project>
+</Solution>

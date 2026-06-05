@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="RSolution.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RSolution"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="RSolution">
+
+    <NavigationView 
+        x:Name="NavView"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="True"
+        PaneDisplayMode="Left"
+        SelectionChanged="NavView_SelectionChanged">
+
+
+        <!-- ===== 메뉴 ===== -->
+        <NavigationView.MenuItems>
+
+            <NavigationViewItem 
+                Content="Operation" 
+                Icon="Play" 
+                Tag="operation"/>
+
+            <NavigationViewItem 
+                Content="Manual" 
+                Icon="Keyboard" 
+                Tag="manual"/>
+
+            <NavigationViewItem 
+                Content="Recipe" 
+                Icon="Library" 
+                Tag="recipe"/>
+
+            <NavigationViewItem 
+                Content="Alarm" 
+                Icon="Warning" 
+                Tag="alarm"/>
+
+            <NavigationViewItem 
+                Content="I/O Monitor" 
+                Icon="View" 
+                Tag="io"/>
+
+            <NavigationViewItem 
+                Content="Maintenance" 
+                Icon="Repair" 
+                Tag="maintenance"/>
+        </NavigationView.MenuItems>
+
+        <!-- ===== Footer ===== -->
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem 
+                Content="System" 
+                Icon="Setting" 
+                Tag="system"/>
+        </NavigationView.FooterMenuItems>
+
+        <!-- ===== 컨텐츠 영역 ===== -->
+        <Frame 
+            x:Name="ContentFrame" />
+    </NavigationView>
+
+
+</Window>

@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass OperationPage : Microsoft.UI.Xaml.Window
+    {
+        OperationPage();
+        Int32 MyProperty;
+    }
+}

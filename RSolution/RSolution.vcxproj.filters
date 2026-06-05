@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Generated Files\module.g.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\pch.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui_winui\shell\ShellViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\operation\OperationViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\manual\ManualViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\recipe\RecipeViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\alarm\AlarmViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\io\IoMonitorViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\trend\TrendViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\maintenance\MaintenanceViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\pages\system\SystemViewModel.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\base\ObservableObject.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\domain_adapters\AlarmUiMapper.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\domain_adapters\RecipeUiMapper.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\base\RelayCommand.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\base\ViewModelBase.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\domain_adapters\MachineUiMapper.cpp" />
+    <ClCompile Include="src\ui_winui\services\NavigationService\NavigationService.cpp" />
+    <ClCompile Include="src\ui_winui\services\DialogService\DialogService.cpp" />
+    <ClCompile Include="src\ui_winui\services\DispatcherService\DispatcherService.cpp" />
+    <ClCompile Include="src\ui_winui\services\PermissionService\PermissionService.cpp" />
+    <ClCompile Include="src\ui_winui\viewmodels\ShellViewModel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="src\Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{a69f0ca1-7fdb-4820-b46c-f9cf63cfaeb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{e1620d2c-30e7-46d5-87e4-0c96ee178cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui">
+      <UniqueIdentifier>{fe5b55eb-d1fe-41ea-b717-9d13dc0c5ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\shell">
+      <UniqueIdentifier>{87948234-1256-4dea-8acd-8c9da3b62ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\pages">
+      <UniqueIdentifier>{c32059d1-77dc-4d8c-99cf-4bcae75a4de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\viewmodels">
+      <UniqueIdentifier>{6410de02-bcc9-4ffa-a5f0-53835f8fb8cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app">
+      <UniqueIdentifier>{7dede329-4542-4384-b7b0-82a90411b27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{0d7b235e-39c0-409b-88d5-f9b50b951c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{ab1cc6cd-7cba-4106-9954-9840f23f55fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deployment">
+      <UniqueIdentifier>{06e38f18-1497-42f1-93f7-91f6d0c32d96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\viewmodels\domain_adapters">
+      <UniqueIdentifier>{aef65a13-d760-46fb-af92-e6295560614d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\pages\operation">
+      <UniqueIdentifier>{1cb7def7-74d2-4322-8a89-01064fd36600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\pages\alarm">
+      <UniqueIdentifier>{2971bde6-985e-42d6-8c35-d8fc9bf2c04d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\pages\manual">
+      <UniqueIdentifier>{f255f31c-1fed-4534-8e6a-b35450816c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_winui\services">
+      <UniqueIdentifier>{1b400dca-09ae-4a71-9641-35db59dbd5c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\models">
+      <UniqueIdentifier>{6888c437-1532-4f8f-ae8b-a46a913e2a62}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter">
+      <Filter>app</Filter>
+    </Natvis>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis">
+      <Filter>app</Filter>
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="src\ui_winui\App.xaml">
+      <Filter>ui_winui</Filter>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="src\ui_winui\MainWindow.xaml">
+      <Filter>ui_winui</Filter>
+    </Page>
+    <Page Include="src\ui_winui\shell\NavigationView.xaml">
+      <Filter>ui_winui\shell</Filter>
+    </Page>
+    <Page Include="src\ui_winui\shell\StatusBar.xaml">
+      <Filter>ui_winui\shell</Filter>
+    </Page>
+    <Page Include="src\ui_winui\shell\HeaderPanel.xaml">
+      <Filter>ui_winui\shell</Filter>
+    </Page>
+    <Page Include="src\ui_winui\pages\operation\OperationPage.xaml">
+      <Filter>ui_winui\pages\operation</Filter>
+    </Page>
+    <Page Include="src\ui_winui\pages\manual\ManualPage.xaml" />
+    <Page Include="src\ui_winui\pages\recipe\RecipePage.xaml" />
+    <Page Include="src\ui_winui\pages\alarm\AlarmPage.xaml" />
+    <Page Include="src\ui_winui\pages\io\IoMonitorPage.xaml" />
+    <Page Include="src\ui_winui\pages\trend\TrendPage.xaml" />
+    <Page Include="src\ui_winui\pages\maintenance\MaintenancePage.xaml" />
+    <Page Include="src\ui_winui\pages\system\SystemPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="src\app\app.manifest">
+      <Filter>app</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\app\packages.config">
+      <Filter>app</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\pch.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\MachineSnapshot.h">
+      <Filter>Core\models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui_winui\shell\ShellViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\operation\OperationViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\manual\ManualViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\recipe\RecipeViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\alarm\AlarmViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\io\IoMonitorViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\trend\TrendViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\maintenance\MaintenanceViewModel.h" />
+    <ClInclude Include="src\ui_winui\pages\system\SystemViewModel.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\base\ObservableObject.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\domain_adapters\AlarmUiMapper.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\domain_adapters\RecipeUiMapper.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\base\RelayCommand.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\base\ViewModelBase.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\domain_adapters\MachineUiMapper.h" />
+    <ClInclude Include="src\ui_winui\services\NavigationService\NavigationService.h" />
+    <ClInclude Include="src\ui_winui\services\DialogService\DialogService.h" />
+    <ClInclude Include="src\ui_winui\services\DispatcherService\DispatcherService.h" />
+    <ClInclude Include="src\ui_winui\services\NavigationService\INavigationService.h" />
+    <ClInclude Include="src\ui_winui\services\PermissionService\PermissionService.h" />
+    <ClInclude Include="src\ui_winui\services\PermissionService\IPermissionService.h" />
+    <ClInclude Include="src\ui_winui\services\DialogService\IDialogService.h" />
+    <ClInclude Include="src\ui_winui\services\DispatcherService\IDispatcherService.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\AppRoute.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\MachineUiSnapshot.h" />
+    <ClInclude Include="src\ui_winui\viewmodels\ShellViewModel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\app\readme.txt">
+      <Filter>app</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

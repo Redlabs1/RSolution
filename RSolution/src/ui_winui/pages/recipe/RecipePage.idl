@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass RecipePage : Microsoft.UI.Xaml.Controls.Page
+    {
+        RecipePage();
+        Int32 MyProperty;
+    }
+}

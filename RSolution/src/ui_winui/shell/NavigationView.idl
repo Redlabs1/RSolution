@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass NavigationView : Microsoft.UI.Xaml.Window
+    {
+        NavigationView();
+        Int32 MyProperty;
+    }
+}

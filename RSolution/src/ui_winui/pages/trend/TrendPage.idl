@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass TrendPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        TrendPage();
+        Int32 MyProperty;
+    }
+}

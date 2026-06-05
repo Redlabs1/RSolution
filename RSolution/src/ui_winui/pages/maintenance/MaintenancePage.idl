@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass MaintenancePage : Microsoft.UI.Xaml.Controls.Page
+    {
+        MaintenancePage();
+        Int32 MyProperty;
+    }
+}

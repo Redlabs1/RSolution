@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass AlarmPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        AlarmPage();
+        Int32 MyProperty;
+    }
+}

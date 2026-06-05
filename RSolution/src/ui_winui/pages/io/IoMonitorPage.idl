@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass IoMonitorPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        IoMonitorPage();
+        Int32 MyProperty;
+    }
+}
