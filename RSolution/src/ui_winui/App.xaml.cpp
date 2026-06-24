@@ -1,6 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
+#include "core/infrastructure/logging/LogManager.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -16,8 +17,9 @@ namespace winrt::RSolution::implementation
     /// </summary>
     App::App()
     {
-        // Xaml objects should not call InitializeComponent during construction.
-        // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
+        // App.xaml 의 병합 리소스(XamlControlsResources 등)를 로드한다.
+        // 이 호출이 없으면 WinUI 컨트롤의 기본 스타일을 찾지 못해 hresult_error 가 발생한다.
+        InitializeComponent();
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
         UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
@@ -37,6 +39,13 @@ namespace winrt::RSolution::implementation
     /// <param name="e">Details about the launch request and process.</param>
     void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
     {
+        // 설정 파일(LogManagerSystemParam.json)을 읽어 채널을 구성. 없으면 기본값.
+        rs::LogManager::Instance().LoadConfig(L"");
+#ifdef _DEBUG
+        rs::LogManager::Instance().SetMinLevel(rs::LogLevel::Trace);
+#endif
+        RS_INFO(rs::LogChannel::Info, L"RSolution 애플리케이션 시작");
+
         window = make<MainWindow>();
         window.Activate();
     }

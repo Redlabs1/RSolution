@@ -9,6 +9,11 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <ListView
+            ItemsSource="{x:Bind LogEntries}"
+            SelectionMode="None"
+            Padding="8"
+            FontFamily="Consolas"
+            FontSize="12" />
     </Grid>
 </Page>

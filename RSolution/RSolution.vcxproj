@@ -29,7 +29,9 @@
     <DefaultLanguage>ko-KR</DefaultLanguage>
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
     <AppContainerApplication>false</AppContainerApplication>
-    <AppxPackage>true</AppxPackage>
+    <!-- 비패키지(unpackaged) 앱: Package.appxmanifest 없이 빌드/실행. -->
+    <AppxPackage>false</AppxPackage>
+    <WindowsPackageType>None</WindowsPackageType>
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -97,6 +99,12 @@
       <LanguageStandard Condition="'$(VisualStudioVersion)' &gt;= '18.0'">stdcpp17</LanguageStandard>
       <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpp17</LanguageStandard>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <!--
+        XAML 마크업 컴파일러는 *.xaml.g.h 를 소스 폴더 구조(src\ui_winui\...)를 미러링한
+        하위 경로에 생성하지만, cppwinrt 가 생성하는 *.g.h 는 평평한 경로에서 이를 include 한다.
+        해당 하위 디렉터리들을 include 경로에 추가해 .xaml.g.h 가 해석되도록 한다.
+      -->
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\app;$(GeneratedFilesDir)src\ui_winui;$(GeneratedFilesDir)src\ui_winui\shell;$(GeneratedFilesDir)src\ui_winui\pages\operation;$(GeneratedFilesDir)src\ui_winui\pages\manual;$(GeneratedFilesDir)src\ui_winui\pages\recipe;$(GeneratedFilesDir)src\ui_winui\pages\alarm;$(GeneratedFilesDir)src\ui_winui\pages\io;$(GeneratedFilesDir)src\ui_winui\pages\trend;$(GeneratedFilesDir)src\ui_winui\pages\maintenance;$(GeneratedFilesDir)src\ui_winui\pages\system;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -123,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\MachineSnapshot.h" />
+    <ClInclude Include="src\core\infrastructure\logging\LogManager.h" />
+    <ClInclude Include="src\core\infrastructure\data\DataManager.h" />
     <ClInclude Include="src\ui_winui\pages\system\SystemViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\maintenance\MaintenanceViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\maintenance\MaintenancePage.xaml.h">
@@ -191,7 +201,6 @@
     <ClInclude Include="src\ui_winui\viewmodels\domain_adapters\MachineUiMapper.h" />
     <ClInclude Include="src\ui_winui\viewmodels\domain_adapters\RecipeUiMapper.h" />
     <ClInclude Include="src\ui_winui\viewmodels\MachineUiSnapshot.h" />
-    <ClInclude Include="src\ui_winui\viewmodels\ShellViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="src\ui_winui\App.xaml" />
@@ -213,17 +222,11 @@
     <Page Include="src\ui_winui\pages\system\SystemPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="src\ui_winui\shell\HeaderPanel.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="src\ui_winui\MainWindow.xaml" />
     <Page Include="src\ui_winui\shell\NavigationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="src\ui_winui\pages\operation\OperationPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="src\ui_winui\shell\StatusBar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="src\ui_winui\pages\trend\TrendPage.xaml">
@@ -278,13 +281,15 @@
     <ClCompile Include="src\app\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\core\infrastructure\logging\LogManager.cpp" />
+    <ClCompile Include="src\core\infrastructure\data\DataManager.cpp" />
     <ClCompile Include="src\ui_winui\App.xaml.cpp">
       <DependentUpon>src\ui_winui\App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="src\ui_winui\MainWindow.xaml.cpp">
       <DependentUpon>src\ui_winui\MainWindow.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="src\Generated Files\module.g.cpp" />
+    <ClCompile Include="Generated Files\module.g.cpp" />
     <ClCompile Include="src\ui_winui\shell\ShellViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\trend\TrendPage.xaml.cpp">
       <DependentUpon>src\ui_winui\pages\trend\TrendPage.xaml</DependentUpon>
@@ -296,7 +301,6 @@
     <ClCompile Include="src\ui_winui\viewmodels\base\ObservableObject.cpp" />
     <ClCompile Include="src\ui_winui\viewmodels\domain_adapters\MachineUiMapper.cpp" />
     <ClCompile Include="src\ui_winui\viewmodels\domain_adapters\RecipeUiMapper.cpp" />
-    <ClCompile Include="src\ui_winui\viewmodels\ShellViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="src\ui_winui\pages\io\IoMonitorPage.idl">

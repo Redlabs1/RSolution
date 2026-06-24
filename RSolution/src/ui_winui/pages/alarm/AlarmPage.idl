@@ -5,5 +5,6 @@ namespace RSolution
     {
         AlarmPage();
         Int32 MyProperty;
+        Windows.Foundation.Collections.IObservableVector<Object> LogEntries{ get; };
     }
 }

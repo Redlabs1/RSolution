@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="RSolution.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -35,10 +35,13 @@
                 Icon="Library" 
                 Tag="recipe"/>
 
-            <NavigationViewItem 
-                Content="Alarm" 
-                Icon="Warning" 
-                Tag="alarm"/>
+            <NavigationViewItem
+                Content="Alarm"
+                Tag="alarm">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE7BA;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
 
             <NavigationViewItem 
                 Content="I/O Monitor" 

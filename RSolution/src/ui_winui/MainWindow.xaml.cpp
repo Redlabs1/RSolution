@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MainWindow.xaml.h"
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
@@ -37,12 +37,19 @@ namespace winrt::RSolution::implementation
         Microsoft::UI::Xaml::Controls::NavigationView const& sender,
         Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
     {
-        if (args.SelectedItemContainer())
+        if (args.IsSettingsSelected())
         {
-            auto item = args.SelectedItemContainer().as<Microsoft::UI::Xaml::Controls::NavigationViewItem>();
-            auto tag = winrt::unbox_value<hstring>(item.Tag());
+            // TODO: Settings 페이지 네비게이션 구현
+            return;
+        }
 
-            Navigate(tag);
+        if (auto container = args.SelectedItemContainer())
+        {
+            auto item = container.as<Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+            if (auto tagValue = item.Tag())
+            {
+                Navigate(winrt::unbox_value<hstring>(tagValue));
+            }
         }
     }
 

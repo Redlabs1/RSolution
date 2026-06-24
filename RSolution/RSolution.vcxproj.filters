@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\Generated Files\module.g.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
     <ClCompile Include="src\app\pch.cpp">
       <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\infrastructure\logging\LogManager.cpp">
+      <Filter>Core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\infrastructure\data\DataManager.cpp">
+      <Filter>Core\infrastructure</Filter>
     </ClCompile>
     <ClCompile Include="src\ui_winui\shell\ShellViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\operation\OperationViewModel.cpp" />
@@ -26,7 +29,6 @@
     <ClCompile Include="src\ui_winui\services\DialogService\DialogService.cpp" />
     <ClCompile Include="src\ui_winui\services\DispatcherService\DispatcherService.cpp" />
     <ClCompile Include="src\ui_winui\services\PermissionService\PermissionService.cpp" />
-    <ClCompile Include="src\ui_winui\viewmodels\ShellViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\Wide310x150Logo.scale-200.png">
@@ -100,6 +102,9 @@
     <Filter Include="Core\models">
       <UniqueIdentifier>{6888c437-1532-4f8f-ae8b-a46a913e2a62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\infrastructure">
+      <UniqueIdentifier>{b3d4f1a2-5c6e-4a7b-9d8c-0e1f2a3b4c5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter">
@@ -119,12 +124,6 @@
       <Filter>ui_winui</Filter>
     </Page>
     <Page Include="src\ui_winui\shell\NavigationView.xaml">
-      <Filter>ui_winui\shell</Filter>
-    </Page>
-    <Page Include="src\ui_winui\shell\StatusBar.xaml">
-      <Filter>ui_winui\shell</Filter>
-    </Page>
-    <Page Include="src\ui_winui\shell\HeaderPanel.xaml">
       <Filter>ui_winui\shell</Filter>
     </Page>
     <Page Include="src\ui_winui\pages\operation\OperationPage.xaml">
@@ -155,6 +154,12 @@
     <ClInclude Include="src\app\MachineSnapshot.h">
       <Filter>Core\models</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\infrastructure\logging\LogManager.h">
+      <Filter>Core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\infrastructure\data\DataManager.h">
+      <Filter>Core\infrastructure</Filter>
+    </ClInclude>
     <ClInclude Include="src\ui_winui\shell\ShellViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\operation\OperationViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\manual\ManualViewModel.h" />
@@ -180,7 +185,6 @@
     <ClInclude Include="src\ui_winui\services\DispatcherService\IDispatcherService.h" />
     <ClInclude Include="src\ui_winui\viewmodels\AppRoute.h" />
     <ClInclude Include="src\ui_winui\viewmodels\MachineUiSnapshot.h" />
-    <ClInclude Include="src\ui_winui\viewmodels\ShellViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\app\readme.txt">
