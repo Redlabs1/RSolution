@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass LogPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        LogPage();
+        Int32 MyProperty;
+    }
+}

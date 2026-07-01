@@ -96,15 +96,15 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
-      <LanguageStandard Condition="'$(VisualStudioVersion)' &gt;= '18.0'">stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="'$(VisualStudioVersion)' &gt;= '18.0'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpp20</LanguageStandard>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
       <!--
         XAML 마크업 컴파일러는 *.xaml.g.h 를 소스 폴더 구조(src\ui_winui\...)를 미러링한
         하위 경로에 생성하지만, cppwinrt 가 생성하는 *.g.h 는 평평한 경로에서 이를 include 한다.
         해당 하위 디렉터리들을 include 경로에 추가해 .xaml.g.h 가 해석되도록 한다.
       -->
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\app;$(GeneratedFilesDir)src\ui_winui;$(GeneratedFilesDir)src\ui_winui\shell;$(GeneratedFilesDir)src\ui_winui\pages\operation;$(GeneratedFilesDir)src\ui_winui\pages\manual;$(GeneratedFilesDir)src\ui_winui\pages\recipe;$(GeneratedFilesDir)src\ui_winui\pages\alarm;$(GeneratedFilesDir)src\ui_winui\pages\io;$(GeneratedFilesDir)src\ui_winui\pages\trend;$(GeneratedFilesDir)src\ui_winui\pages\maintenance;$(GeneratedFilesDir)src\ui_winui\pages\system;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\app;$(GeneratedFilesDir)src\ui_winui;$(GeneratedFilesDir)src\ui_winui\shell;$(GeneratedFilesDir)src\ui_winui\pages\operation;$(GeneratedFilesDir)src\ui_winui\pages\manual;$(GeneratedFilesDir)src\ui_winui\pages\recipe;$(GeneratedFilesDir)src\ui_winui\pages\alarm;$(GeneratedFilesDir)src\ui_winui\pages\io;$(GeneratedFilesDir)src\ui_winui\pages\trend;$(GeneratedFilesDir)src\ui_winui\pages\maintenance;$(GeneratedFilesDir)src\ui_winui\pages\system;$(GeneratedFilesDir)src\ui_winui\pages\autorun;$(GeneratedFilesDir)src\ui_winui\pages\log;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -133,6 +133,33 @@
     <ClInclude Include="src\app\MachineSnapshot.h" />
     <ClInclude Include="src\core\infrastructure\logging\LogManager.h" />
     <ClInclude Include="src\core\infrastructure\data\DataManager.h" />
+    <ClInclude Include="src\core\common\Result.h" />
+    <ClInclude Include="src\core\common\IEventBus.h" />
+    <ClInclude Include="src\core\common\EventBus.h" />
+    <ClInclude Include="src\core\domain\EquipmentState.h" />
+    <ClInclude Include="src\core\domain\IRecipeRepository.h" />
+    <ClInclude Include="src\core\domain\IAlarmService.h" />
+    <ClInclude Include="src\core\domain\AlarmService.h" />
+    <ClInclude Include="src\hal\IMotionController.h" />
+    <ClInclude Include="src\hal\IIoProvider.h" />
+    <ClInclude Include="src\hal\IVisionCamera.h" />
+    <ClInclude Include="src\host\IHostGateway.h" />
+    <ClInclude Include="src\core\domain\EquipmentCommand.h" />
+    <ClInclude Include="src\core\domain\EquipmentStateMachine.h" />
+    <ClInclude Include="src\sequence\SequenceContext.h" />
+    <ClInclude Include="src\sequence\ISequenceStep.h" />
+    <ClInclude Include="src\sequence\TimeoutGuard.h" />
+    <ClInclude Include="src\sequence\SequenceManager.h" />
+    <ClInclude Include="src\sequence\SequenceRunner.h" />
+    <ClInclude Include="src\sequence\steps\DelayStep.h" />
+    <ClInclude Include="src\sequence\steps\MoveAxisStep.h" />
+    <ClInclude Include="src\simulator\SimulatedMotionController.h" />
+    <ClInclude Include="src\simulator\SimulatedIoProvider.h" />
+    <ClInclude Include="src\simulator\SimulatedHostGateway.h" />
+    <ClInclude Include="src\core\domain\AlarmCode.h" />
+    <ClInclude Include="src\core\domain\InterlockClass.h" />
+    <ClInclude Include="src\core\domain\RecipeRepository.h" />
+    <ClInclude Include="src\tests\SelfTests.h" />
     <ClInclude Include="src\ui_winui\pages\system\SystemViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\maintenance\MaintenanceViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\maintenance\MaintenancePage.xaml.h">
@@ -193,6 +220,14 @@
       <DependentUpon>src\ui_winui\pages\trend\TrendPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="src\ui_winui\pages\autorun\AutoRunPage.xaml.h">
+      <DependentUpon>src\ui_winui\pages\autorun\AutoRunPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="src\ui_winui\pages\log\LogPage.xaml.h">
+      <DependentUpon>src\ui_winui\pages\log\LogPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="src\ui_winui\viewmodels\AppRoute.h" />
     <ClInclude Include="src\ui_winui\viewmodels\base\RelayCommand.h" />
     <ClInclude Include="src\ui_winui\viewmodels\base\ViewModelBase.h" />
@@ -230,6 +265,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="src\ui_winui\pages\trend\TrendPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\ui_winui\pages\autorun\AutoRunPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\ui_winui\pages\log\LogPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -283,6 +324,13 @@
     </ClCompile>
     <ClCompile Include="src\core\infrastructure\logging\LogManager.cpp" />
     <ClCompile Include="src\core\infrastructure\data\DataManager.cpp" />
+    <ClCompile Include="src\core\domain\EquipmentStateMachine.cpp" />
+    <ClCompile Include="src\core\common\EventBus.cpp" />
+    <ClCompile Include="src\core\domain\AlarmService.cpp" />
+    <ClCompile Include="src\sequence\SequenceManager.cpp" />
+    <ClCompile Include="src\sequence\SequenceRunner.cpp" />
+    <ClCompile Include="src\core\domain\RecipeRepository.cpp" />
+    <ClCompile Include="src\tests\SelfTests.cpp" />
     <ClCompile Include="src\ui_winui\App.xaml.cpp">
       <DependentUpon>src\ui_winui\App.xaml</DependentUpon>
     </ClCompile>
@@ -293,6 +341,14 @@
     <ClCompile Include="src\ui_winui\shell\ShellViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\trend\TrendPage.xaml.cpp">
       <DependentUpon>src\ui_winui\pages\trend\TrendPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="src\ui_winui\pages\autorun\AutoRunPage.xaml.cpp">
+      <DependentUpon>src\ui_winui\pages\autorun\AutoRunPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="src\ui_winui\pages\log\LogPage.xaml.cpp">
+      <DependentUpon>src\ui_winui\pages\log\LogPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="src\ui_winui\viewmodels\base\RelayCommand.cpp" />
@@ -341,6 +397,14 @@
     </Midl>
     <Midl Include="src\ui_winui\pages\trend\TrendPage.idl">
       <DependentUpon>src\ui_winui\pages\trend\TrendPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="src\ui_winui\pages\autorun\AutoRunPage.idl">
+      <DependentUpon>src\ui_winui\pages\autorun\AutoRunPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="src\ui_winui\pages\log\LogPage.idl">
+      <DependentUpon>src\ui_winui\pages\log\LogPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

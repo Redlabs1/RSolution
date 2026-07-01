@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="RSolution.TrendPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +8,82 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Key="ValueCard" TargetType="Border">
+            <Setter Property="Background" Value="#F4F4F4"/>
+            <Setter Property="BorderBrush" Value="#E6E6E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+    </Page.Resources>
 
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Trend" FontSize="34" FontWeight="SemiBold"
+                   Foreground="#222222" Margin="28,18,0,6"/>
+
+        <!-- ===== 현재값 카드 ===== -->
+        <Grid Grid.Row="1" Margin="28,6,28,6" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource ValueCard}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Ellipse Width="12" Height="12" Fill="#E8743B"/>
+                        <TextBlock Text="Temperature" FontSize="16" Foreground="#6B7785"/>
+                    </StackPanel>
+                    <TextBlock x:Name="TemperatureValueText" Text="--.- °C" FontSize="30"
+                               FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource ValueCard}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Ellipse Width="12" Height="12" Fill="#2E86C1"/>
+                        <TextBlock Text="Pressure" FontSize="16" Foreground="#6B7785"/>
+                    </StackPanel>
+                    <TextBlock x:Name="PressureValueText" Text="--.- kPa" FontSize="30"
+                               FontWeight="SemiBold" Foreground="#2C3E50" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ===== 실시간 그래프 ===== -->
+        <Border Grid.Row="2" Margin="28,6,28,20" Background="#FAFAFA"
+                BorderBrush="#E6E6E6" BorderThickness="1" CornerRadius="8" Padding="16">
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 세로축 보조 라벨(공용 정규화 스케일) -->
+                <Grid Grid.Column="0" Width="40">
+                    <TextBlock Text="High" FontSize="11" Foreground="#9AA0A6"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Low" FontSize="11" Foreground="#9AA0A6"
+                               VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <Canvas x:Name="ChartCanvas" Grid.Column="1" Background="Transparent">
+                    <Line x:Name="GridLine0" Stroke="#E5E5E5" StrokeThickness="1"/>
+                    <Line x:Name="GridLine1" Stroke="#E5E5E5" StrokeThickness="1"/>
+                    <Line x:Name="GridLine2" Stroke="#E5E5E5" StrokeThickness="1"/>
+                    <Line x:Name="GridLine3" Stroke="#E5E5E5" StrokeThickness="1"/>
+                    <Polyline x:Name="TemperatureLine" Stroke="#E8743B" StrokeThickness="2"/>
+                    <Polyline x:Name="PressureLine" Stroke="#2E86C1" StrokeThickness="2"/>
+                </Canvas>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -1,0 +1,9 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass AutoRunPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        AutoRunPage();
+        Int32 MyProperty;
+    }
+}

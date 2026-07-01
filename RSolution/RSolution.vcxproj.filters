@@ -10,6 +10,27 @@
     <ClCompile Include="src\core\infrastructure\data\DataManager.cpp">
       <Filter>Core\infrastructure</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\domain\EquipmentStateMachine.cpp">
+      <Filter>Core\domain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\common\EventBus.cpp">
+      <Filter>Core\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\domain\AlarmService.cpp">
+      <Filter>Core\domain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sequence\SequenceManager.cpp">
+      <Filter>sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sequence\SequenceRunner.cpp">
+      <Filter>sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\domain\RecipeRepository.cpp">
+      <Filter>Core\domain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\SelfTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
     <ClCompile Include="src\ui_winui\shell\ShellViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\operation\OperationViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\manual\ManualViewModel.cpp" />
@@ -29,6 +50,7 @@
     <ClCompile Include="src\ui_winui\services\DialogService\DialogService.cpp" />
     <ClCompile Include="src\ui_winui\services\DispatcherService\DispatcherService.cpp" />
     <ClCompile Include="src\ui_winui\services\PermissionService\PermissionService.cpp" />
+    <ClCompile Include="Generated Files\module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\Wide310x150Logo.scale-200.png">
@@ -105,6 +127,27 @@
     <Filter Include="Core\infrastructure">
       <UniqueIdentifier>{b3d4f1a2-5c6e-4a7b-9d8c-0e1f2a3b4c5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\common">
+      <UniqueIdentifier>{c4e5a2b3-6d7f-4b8c-ae9d-1f2a3b4c5d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\domain">
+      <UniqueIdentifier>{d5f6b3c4-7e8a-4c9d-bf0e-2a3b4c5d6e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hal">
+      <UniqueIdentifier>{e6a7c4d5-8f9b-4dae-c01f-3b4c5d6e7f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="host">
+      <UniqueIdentifier>{f7b8d5e6-9a0c-4ebf-d120-4c5d6e7f8091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sequence">
+      <UniqueIdentifier>{a8c9e6f7-0b1d-4f0a-e231-5d6e7f8091a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sequence\steps">
+      <UniqueIdentifier>{b9d0f7a8-1c2e-4f1b-f342-6e7f8091a2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="simulator">
+      <UniqueIdentifier>{c0e108b9-2d3f-4f2c-0453-7f8091a2b3c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter">
@@ -159,6 +202,87 @@
     </ClInclude>
     <ClInclude Include="src\core\infrastructure\data\DataManager.h">
       <Filter>Core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\common\Result.h">
+      <Filter>Core\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\common\IEventBus.h">
+      <Filter>Core\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\common\EventBus.h">
+      <Filter>Core\common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\AlarmService.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\EquipmentState.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\IRecipeRepository.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\IAlarmService.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\IMotionController.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\IIoProvider.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\IVisionCamera.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\host\IHostGateway.h">
+      <Filter>host</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\EquipmentCommand.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\EquipmentStateMachine.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\SequenceContext.h">
+      <Filter>sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\ISequenceStep.h">
+      <Filter>sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\TimeoutGuard.h">
+      <Filter>sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\SequenceManager.h">
+      <Filter>sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\SequenceRunner.h">
+      <Filter>sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\steps\DelayStep.h">
+      <Filter>sequence\steps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sequence\steps\MoveAxisStep.h">
+      <Filter>sequence\steps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\simulator\SimulatedMotionController.h">
+      <Filter>simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\simulator\SimulatedIoProvider.h">
+      <Filter>simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\simulator\SimulatedHostGateway.h">
+      <Filter>simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\AlarmCode.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\InterlockClass.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\RecipeRepository.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\SelfTests.h">
+      <Filter>tests</Filter>
     </ClInclude>
     <ClInclude Include="src\ui_winui\shell\ShellViewModel.h" />
     <ClInclude Include="src\ui_winui\pages\operation\OperationViewModel.h" />

@@ -9,63 +9,80 @@
     mc:Ignorable="d"
     Title="RSolution">
 
-    <NavigationView 
+    <NavigationView
         x:Name="NavView"
         IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="True"
+        IsSettingsVisible="False"
         PaneDisplayMode="Left"
         SelectionChanged="NavView_SelectionChanged">
 
+        <!-- ===== 색상 (목업: 네이비 사이드바 + 연한 파랑 선택) ===== -->
+        <NavigationView.Resources>
+            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#2C3E50"/>
+            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#2C3E50"/>
+
+            <SolidColorBrush x:Key="NavigationViewItemForeground" Color="#ECF0F1"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="#1B2A38"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="#1B2A38"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="#1B2A38"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundDisabled" Color="#7F8C99"/>
+
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundPointerOver" Color="#3B5066"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundPressed" Color="#445C73"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundSelected" Color="#AED6F1"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundSelectedPointerOver" Color="#BFE0F6"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundSelectedPressed" Color="#AED6F1"/>
+
+            <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="#2E86C1"/>
+        </NavigationView.Resources>
 
         <!-- ===== 메뉴 ===== -->
         <NavigationView.MenuItems>
 
-            <NavigationViewItem 
-                Content="Operation" 
-                Icon="Play" 
-                Tag="operation"/>
+            <NavigationViewItem Content="Main" Icon="Home" Tag="main"/>
 
-            <NavigationViewItem 
-                Content="Manual" 
-                Icon="Keyboard" 
-                Tag="manual"/>
+            <NavigationViewItem Content="Auto Run" Icon="Play" Tag="autorun"/>
 
-            <NavigationViewItem 
-                Content="Recipe" 
-                Icon="Library" 
-                Tag="recipe"/>
+            <NavigationViewItem Content="Manual" Tag="manual">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE7C9;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
 
-            <NavigationViewItem
-                Content="Alarm"
-                Tag="alarm">
+            <NavigationViewItem Content="Recipe" Icon="Document" Tag="recipe"/>
+
+            <NavigationViewItem Content="Alarm" Tag="alarm">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE7BA;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem 
-                Content="I/O Monitor" 
-                Icon="View" 
-                Tag="io"/>
+            <NavigationViewItem Content="Trend" Tag="trend">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE9D9;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
 
-            <NavigationViewItem 
-                Content="Maintenance" 
-                Icon="Repair" 
-                Tag="maintenance"/>
+            <NavigationViewItem Content="Maintenance" Icon="Repair" Tag="maintenance"/>
+
+            <NavigationViewItem Content="Log" Tag="log">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE81C;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+
         </NavigationView.MenuItems>
 
         <!-- ===== Footer ===== -->
         <NavigationView.FooterMenuItems>
-            <NavigationViewItem 
-                Content="System" 
-                Icon="Setting" 
-                Tag="system"/>
+            <NavigationViewItem Content="System" Icon="Setting" Tag="system"/>
         </NavigationView.FooterMenuItems>
 
         <!-- ===== 컨텐츠 영역 ===== -->
-        <Frame 
+        <Frame
             x:Name="ContentFrame" />
     </NavigationView>
-
 
 </Window>

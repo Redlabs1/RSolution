@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# 예외: 위 "[Ll]og/" 규칙(빌드 로그 폴더용)이 소스 폴더 이름과 우연히 겹쳐 무시되는 것을 방지.
+# RSolution/src/ui_winui/pages/log 는 실제 소스 코드(LogPage)가 있는 폴더이다.
+!RSolution/src/ui_winui/pages/log/
+!RSolution/src/ui_winui/pages/log/**

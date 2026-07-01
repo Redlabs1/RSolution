@@ -29,8 +29,8 @@ namespace winrt::RSolution::implementation
     {
         InitializeComponent();
 
-        // 기본 페이지
-        Navigate(L"operation");
+        // 첫 항목(Operation) 선택 → 연한 파랑 하이라이트 + 페이지 이동(SelectionChanged 경유)
+        NavView().SelectedItem(NavView().MenuItems().GetAt(0));
     }
 
     void MainWindow::NavView_SelectionChanged(
@@ -55,9 +55,13 @@ namespace winrt::RSolution::implementation
 
     void MainWindow::Navigate(hstring const& tag)
     {
-        if (tag == L"operation")
+        if (tag == L"main")
         {
             ContentFrame().Navigate(xaml_typename<RSolution::OperationPage>());
+        }
+        else if (tag == L"autorun")
+        {
+            ContentFrame().Navigate(xaml_typename<RSolution::AutoRunPage>());
         }
         else if (tag == L"manual")
         {
@@ -71,13 +75,17 @@ namespace winrt::RSolution::implementation
         {
             ContentFrame().Navigate(xaml_typename<RSolution::AlarmPage>());
         }
-        else if (tag == L"io")
+        else if (tag == L"trend")
         {
-            ContentFrame().Navigate(xaml_typename<RSolution::IoMonitorPage>());
+            ContentFrame().Navigate(xaml_typename<RSolution::TrendPage>());
         }
         else if (tag == L"maintenance")
         {
             ContentFrame().Navigate(xaml_typename<RSolution::MaintenancePage>());
+        }
+        else if (tag == L"log")
+        {
+            ContentFrame().Navigate(xaml_typename<RSolution::LogPage>());
         }
         else if (tag == L"system")
         {
