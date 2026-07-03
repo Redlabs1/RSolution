@@ -1,0 +1,13 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass HeaderPanel : Microsoft.UI.Xaml.Controls.Page
+    {
+        HeaderPanel();
+        void SetEquipmentState(String stateText, String brushKey);
+        void SetMode(String modeText);
+        void SetUser(String userText);
+        void SetHostState(Boolean online);
+        void SetPlcState(Boolean ok);
+    }
+}

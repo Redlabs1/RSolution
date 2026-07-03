@@ -19,8 +19,6 @@
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 using namespace Microsoft::UI::Xaml::Navigation;
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::RSolution::implementation
 {
@@ -28,6 +26,15 @@ namespace winrt::RSolution::implementation
     MainWindow::MainWindow()
     {
         InitializeComponent();
+
+        // 상단 Header / 하단 StatusBar 초기 표시값 (UI 문서 v2 5.2 매핑표 기준).
+        // TODO(Application 연계): EquipmentStateMachine 상태 이벤트 구독으로 대체한다.
+        Header().SetEquipmentState(L"INIT", L"DisabledBrush");
+        Header().SetMode(L"MANUAL");
+        Header().SetUser(L"User: -");
+        Header().SetHostState(false);
+        Header().SetPlcState(false);
+        Status().ClearAlarm();
 
         // 첫 항목(Operation) 선택 → 연한 파랑 하이라이트 + 페이지 이동(SelectionChanged 경유)
         NavView().SelectedItem(NavView().MenuItems().GetAt(0));
@@ -39,7 +46,6 @@ namespace winrt::RSolution::implementation
     {
         if (args.IsSettingsSelected())
         {
-            // TODO: Settings 페이지 네비게이션 구현
             return;
         }
 
@@ -75,6 +81,10 @@ namespace winrt::RSolution::implementation
         {
             ContentFrame().Navigate(xaml_typename<RSolution::AlarmPage>());
         }
+        else if (tag == L"io")
+        {
+            ContentFrame().Navigate(xaml_typename<RSolution::IoMonitorPage>());
+        }
         else if (tag == L"trend")
         {
             ContentFrame().Navigate(xaml_typename<RSolution::TrendPage>());
@@ -92,14 +102,4 @@ namespace winrt::RSolution::implementation
             ContentFrame().Navigate(xaml_typename<RSolution::SystemPage>());
         }
     }
-
-    //int32_t MainWindow::MyProperty()
-    //{
-    //    throw hresult_not_implemented();
-    //}
-
-    //void MainWindow::MyProperty(int32_t /* value */)
-    //{
-    //    throw hresult_not_implemented();
-    //}
 }

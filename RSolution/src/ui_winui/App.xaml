@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application
     x:Class="RSolution.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,7 +10,16 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+
+            <!-- 장비 상태 색상 Brush (UI 문서 v2 5장/5.2 매핑표). 모든 Page 에서 동일 키로 참조한다. -->
+            <SolidColorBrush x:Key="ReadyBrush" Color="#27AE60"/>
+            <SolidColorBrush x:Key="RunBrush" Color="#2E86C1"/>
+            <SolidColorBrush x:Key="IdleBrush" Color="#95A5A6"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="#F1C40F"/>
+            <SolidColorBrush x:Key="AlarmBrush" Color="#E74C3C"/>
+            <SolidColorBrush x:Key="DisabledBrush" Color="#566573"/>
+            <SolidColorBrush x:Key="CommFaultBrush" Color="#E67E22"/>
+            <SolidColorBrush x:Key="MaintBrush" Color="#8E44AD"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

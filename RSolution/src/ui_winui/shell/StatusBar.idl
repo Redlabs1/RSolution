@@ -1,0 +1,10 @@
+namespace RSolution
+{
+    [default_interface]
+    runtimeclass StatusBar : Microsoft.UI.Xaml.Controls.Page
+    {
+        StatusBar();
+        void SetAlarm(String message, String severity);
+        void ClearAlarm();
+    }
+}
