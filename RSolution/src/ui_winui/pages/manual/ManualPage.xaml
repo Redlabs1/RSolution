@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="RSolution.ManualPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +8,127 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <SolidColorBrush x:Key="GreenDot" Color="#5BBA6F"/>
+        <SolidColorBrush x:Key="RedDot" Color="#E2574C"/>
+        <SolidColorBrush x:Key="CardBg" Color="#F4F4F4"/>
 
-    </Grid>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBg}"/>
+            <Setter Property="BorderBrush" Value="#E6E6E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="18"/>
+        </Style>
+
+        <Style x:Key="CardTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+        </Style>
+
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#6B7785"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer Background="White">
+        <StackPanel Margin="28,18,28,18" Spacing="14">
+
+            <TextBlock Text="MANUAL — PLC (MC Protocol)" FontSize="26" FontWeight="SemiBold" Foreground="#222222"/>
+
+            <!-- ===== PLC 연결 ===== -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel Spacing="12">
+                    <Grid>
+                        <TextBlock Text="PLC Connection" Style="{StaticResource CardTitle}" HorizontalAlignment="Left"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Ellipse x:Name="ConnDot" Width="13" Height="13" Fill="{StaticResource RedDot}"/>
+                            <TextBlock x:Name="ConnStateText" Text="Disconnected" FontSize="15" Foreground="#444444"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="IP" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="IpBox" Text="192.168.1.10" Width="150"/>
+                        <TextBlock Text="Port" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="PortBox" Text="5002" Width="80"/>
+                        <Button x:Name="SaveIpButton" Content="Save" Click="OnSaveIpClick" MinWidth="80"
+                                ToolTipService.ToolTip="IP/포트를 PlcConnectionParam.json 에 저장"/>
+                        <Button x:Name="ConnectButton" Content="Connect" Click="OnConnectClick" MinWidth="110"/>
+                        <Button x:Name="DisconnectButton" Content="Disconnect" Click="OnDisconnectClick" MinWidth="110" IsEnabled="False"/>
+                        <Button x:Name="TestButton" Content="Loopback Test" Click="OnLoopbackClick" MinWidth="130" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="CpuText" Text="CPU: -" FontSize="14" Foreground="#6B7785"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 워드 영역 읽기/쓰기 ===== -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Word Read / Write" Style="{StaticResource CardTitle}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Device" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="WordDeviceBox" Width="80" SelectedIndex="0">
+                            <ComboBoxItem Content="D"/>
+                            <ComboBoxItem Content="W"/>
+                            <ComboBoxItem Content="R"/>
+                        </ComboBox>
+                        <TextBlock Text="Address" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="WordAddrBox" Text="100" Width="90"/>
+                        <TextBlock Text="Count" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="WordCountBox" Text="4" Width="60"/>
+                        <Button x:Name="WordReadButton" Content="Read" Click="OnWordReadClick" MinWidth="90" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Values" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="WordValueBox" Text="1,2,3,4" Width="320"
+                                 PlaceholderText="쉼표 구분 (10진수 또는 0x16진수)"/>
+                        <Button x:Name="WordWriteButton" Content="Write" Click="OnWordWriteClick" MinWidth="90" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="WordResultText" Text="-" FontSize="14" Foreground="#444444" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 비트 영역 읽기/쓰기 ===== -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Bit Read / Write" Style="{StaticResource CardTitle}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Device" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox x:Name="BitDeviceBox" Width="80" SelectedIndex="0">
+                            <ComboBoxItem Content="M"/>
+                            <ComboBoxItem Content="X"/>
+                            <ComboBoxItem Content="Y"/>
+                            <ComboBoxItem Content="B"/>
+                        </ComboBox>
+                        <TextBlock Text="Address" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="BitAddrBox" Text="0" Width="90"/>
+                        <TextBlock Text="Count" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="BitCountBox" Text="8" Width="60"/>
+                        <Button x:Name="BitReadButton" Content="Read" Click="OnBitReadClick" MinWidth="90" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Values" Style="{StaticResource FieldLabel}"/>
+                        <TextBox x:Name="BitValueBox" Text="1,0,1,0" Width="320"
+                                 PlaceholderText="쉼표 구분 0/1"/>
+                        <Button x:Name="BitWriteButton" Content="Write" Click="OnBitWriteClick" MinWidth="90" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="BitResultText" Text="-" FontSize="14" Foreground="#444444" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 상태/로그 ===== -->
+            <TextBlock x:Name="StatusText" Text="Ready" FontSize="13" Foreground="#9AA0A6" TextWrapping="Wrap"/>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

@@ -156,6 +156,7 @@
     <ClInclude Include="src\simulator\SimulatedMotionController.h" />
     <ClInclude Include="src\simulator\SimulatedIoProvider.h" />
     <ClInclude Include="src\simulator\SimulatedHostGateway.h" />
+    <ClInclude Include="src\drivers\MC_Protocol\MC_Protocol.h" />
     <ClInclude Include="src\core\domain\AlarmCode.h" />
     <ClInclude Include="src\core\domain\InterlockClass.h" />
     <ClInclude Include="src\core\domain\RecipeRepository.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="src\sequence\SequenceRunner.cpp" />
     <ClCompile Include="src\core\domain\RecipeRepository.cpp" />
     <ClCompile Include="src\tests\SelfTests.cpp" />
+    <ClCompile Include="src\drivers\MC_Protocol\MC_Protocol.cpp" />
     <ClCompile Include="src\ui_winui\App.xaml.cpp">
       <DependentUpon>src\ui_winui\App.xaml</DependentUpon>
     </ClCompile>

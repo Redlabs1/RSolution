@@ -42,6 +42,8 @@ src/
                            # SequenceContext, TimeoutGuard, steps/(DelayStep, MoveAxisStep)
   hal/                     # IMotionController, IIoProvider, IVisionCamera (장치 추상화 인터페이스)
   simulator/               # SimulatedMotionController/IoProvider/HostGateway (하드웨어 없는 검증)
+  drivers/
+    MC_Protocol/           # 미쓰비시 PLC MC 프로토콜(3E 프레임) TCP 클라이언트 (McProtocolClient)
   host/                    # IHostGateway (SECS/GEM·MES)
   tests/                   # SelfTests — 격리된 자체 단위 테스트(Debug 빌드마다 자동 실행)
   ui_winui/                # WinUI 셸/페이지/뷰모델/서비스
@@ -67,6 +69,7 @@ src/
 - **OperationPage 실시간 연동**: 하단 알람 바는 `AlarmService`↔`EventBus`(`alarm.changed`)로 발생/미발생(빨강/초록) 자동 전환. "SYSTEM STATUS" 옆 라벨은 `EquipmentStateMachine`↔`EventBus`(`state.changed`)로 현재 상태 실시간 표시.
 - **TrendPage 실시간 그래프**: 외부 차트 라이브러리 없이 `Canvas`+`Polyline` 직접 그리기로 구현. 500ms 주기 `DispatcherTimer` 로 온도/압력 2계열 샘플링(최근 60개 스크롤), 각 계열 자체 min/max 로 정규화해 공용 캔버스 높이에 표시. **현재는 시뮬레이션 값**(사인파+노이즈) — 실제 `IIoProvider`/센서 연동은 TODO(설계서 5.1.7 Trace Manager).
 - **tests/SelfTests**: `RunSelfTests()` — AlarmCode/InterlockClass(순수 함수), `EquipmentStateMachine`(격리된 로컬 인스턴스, `Instance()` 미사용), `RecipeRepository`(임시 폴더, 정리함)를 검증. **전역 싱글톤을 건드리지 않아 실행 중인 앱 상태를 오염시키지 않음.** `App::OnLaunched` 에서 `_DEBUG` 빌드마다 자동 실행, 결과는 Debug 채널에 기록. (AlarmService 는 순수 싱글톤이라 격리 인스턴스 생성이 불가능해 self-test 대상에서 제외 — 정책 로직은 이 세션에서 실제 시나리오로 수동 검증됨.)
+- **MC_Protocol** (`drivers/MC_Protocol`): 미쓰비시 PLC MC 프로토콜(3E 프레임, 바이너리) TCP 클라이언트 `rs::drivers::McProtocolClient`. `Connect/Disconnect/IsConnected`, `LoopbackTest`(0x0619)/`ReadCpuName`(0x0101), 워드 `ReadWords/WriteWords`(0x0401/0x1401 sub 0x0000), 비트 `ReadBits/WriteBits`(sub 0x0001, 니블 패킹). 헤더는 Winsock 비의존(소켓은 `uintptr_t`), 트랜잭션 뮤텍스 직렬화, `Instance()` 전역 공유(페이지 전환에도 연결 유지), Tcpip 채널 로깅. **주의**: winsock2 사용을 위해 `pch.h` 최상단에서 `<winsock2.h>` 를 `<windows.h>` 보다 먼저 포함하도록 수정됨. ManualPage 에 연결/루프백/워드·비트 읽기쓰기 테스트 UI 연동(통신은 워커 스레드, UI 반영은 DispatcherQueue).
 - **인터페이스만 있는 것** (설계서 6.2): `IMotionController`/`IIoProvider`/`IVisionCamera`는 `simulator/` 구현만 있고 실제 벤더 어댑터(`drivers/`)는 없음. `IHostGateway`도 시뮬레이터만 있음(실제 SECS/GEM 스택 없음).
 
 ## WinUI 주의사항 (해결 이력)

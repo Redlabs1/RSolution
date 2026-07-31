@@ -28,6 +28,9 @@
     <ClCompile Include="src\core\domain\RecipeRepository.cpp">
       <Filter>Core\domain</Filter>
     </ClCompile>
+    <ClCompile Include="src\drivers\MC_Protocol\MC_Protocol.cpp">
+      <Filter>drivers\MC_Protocol</Filter>
+    </ClCompile>
     <ClCompile Include="src\tests\SelfTests.cpp">
       <Filter>tests</Filter>
     </ClCompile>
@@ -147,6 +150,12 @@
     </Filter>
     <Filter Include="simulator">
       <UniqueIdentifier>{c0e108b9-2d3f-4f2c-0453-7f8091a2b3c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers">
+      <UniqueIdentifier>{d1f219ca-3e40-4a3d-1564-8091a2b3c4d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\MC_Protocol">
+      <UniqueIdentifier>{e20a2adb-4f51-4b4e-2675-91a2b3c4d5e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="src\simulator\SimulatedIoProvider.h">
       <Filter>simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\drivers\MC_Protocol\MC_Protocol.h">
+      <Filter>drivers\MC_Protocol</Filter>
     </ClInclude>
     <ClInclude Include="src\simulator\SimulatedHostGateway.h">
       <Filter>simulator</Filter>

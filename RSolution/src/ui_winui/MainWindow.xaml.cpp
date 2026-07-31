@@ -34,7 +34,7 @@ namespace winrt::RSolution::implementation
     }
 
     void MainWindow::NavView_SelectionChanged(
-        Microsoft::UI::Xaml::Controls::NavigationView const& sender,
+        Microsoft::UI::Xaml::Controls::NavigationView const& /*sender*/,
         Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
     {
         if (args.IsSettingsSelected())
