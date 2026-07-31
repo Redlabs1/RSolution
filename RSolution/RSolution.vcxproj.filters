@@ -159,14 +159,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter">
-      <Filter>app</Filter>
-    </Natvis>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis">
-      <Filter>app</Filter>
-    </Natvis>
-  </ItemGroup>
-  <ItemGroup>
     <ApplicationDefinition Include="src\ui_winui\App.xaml">
       <Filter>ui_winui</Filter>
     </ApplicationDefinition>
@@ -176,6 +168,12 @@
       <Filter>ui_winui</Filter>
     </Page>
     <Page Include="src\ui_winui\shell\NavigationView.xaml">
+      <Filter>ui_winui\shell</Filter>
+    </Page>
+    <Page Include="src\ui_winui\shell\HeaderPanel.xaml">
+      <Filter>ui_winui\shell</Filter>
+    </Page>
+    <Page Include="src\ui_winui\shell\StatusBar.xaml">
       <Filter>ui_winui\shell</Filter>
     </Page>
     <Page Include="src\ui_winui\pages\operation\OperationPage.xaml">
@@ -188,6 +186,8 @@
     <Page Include="src\ui_winui\pages\trend\TrendPage.xaml" />
     <Page Include="src\ui_winui\pages\maintenance\MaintenancePage.xaml" />
     <Page Include="src\ui_winui\pages\system\SystemPage.xaml" />
+    <Page Include="src\ui_winui\pages\autorun\AutoRunPage.xaml" />
+    <Page Include="src\ui_winui\pages\log\LogPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="src\app\app.manifest">
@@ -198,6 +198,7 @@
     <None Include="src\app\packages.config">
       <Filter>app</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\pch.h">
@@ -240,6 +241,15 @@
       <Filter>hal</Filter>
     </ClInclude>
     <ClInclude Include="src\hal\IVisionCamera.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\ILightController.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\IVisionAlgorithm.h">
+      <Filter>hal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\IImageStorage.h">
       <Filter>hal</Filter>
     </ClInclude>
     <ClInclude Include="src\host\IHostGateway.h">
@@ -288,6 +298,12 @@
       <Filter>Core\domain</Filter>
     </ClInclude>
     <ClInclude Include="src\core\domain\InterlockClass.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\InterlockRule.h">
+      <Filter>Core\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\domain\UserRole.h">
       <Filter>Core\domain</Filter>
     </ClInclude>
     <ClInclude Include="src\core\domain\RecipeRepository.h">
