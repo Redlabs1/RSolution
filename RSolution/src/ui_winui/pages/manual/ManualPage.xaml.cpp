@@ -21,7 +21,7 @@ namespace
 {
     using rs::drivers::McProtocolClient;
 
-    // ---- PLC 연결 설정 저장/복원 (<exe>\PlcConnectionParam.json) ----
+    // ---- PLC 연결 설정 저장/복원 (<exe>\Data\System\PlcConnectionParam.json) ----
 
     std::wstring PlcConfigPath()
     {
@@ -30,7 +30,7 @@ namespace
         std::wstring path(buf, n);
         const auto slash = path.find_last_of(L"\\/");
         return (slash == std::wstring::npos ? std::wstring{} : path.substr(0, slash + 1))
-               + L"PlcConnectionParam.json";
+               + L"Data\\System\\PlcConnectionParam.json";
     }
 
     // 저장된 설정을 읽는다. 파일이 없거나 항목이 없으면 기본값 유지.

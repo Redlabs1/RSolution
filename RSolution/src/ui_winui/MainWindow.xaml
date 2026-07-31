@@ -10,7 +10,9 @@
     Title="RSolution">
 
     <!-- UI 문서 v2 2장 공통 레이아웃: 상단 Header + 중앙 NavigationView/Frame + 하단 알람 StatusBar -->
-    <Grid>
+    <!-- RequestedTheme=Light: 페이지들이 밝은 배경 고정 디자인이라 OS 다크 모드에서
+         컨트롤 글자가 흰색이 되어 안 보이는 문제 방지(하위 전체에 상속됨) -->
+    <Grid RequestedTheme="Light">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
