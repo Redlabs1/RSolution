@@ -90,6 +90,25 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <!--
+    SoftServo WMX3 SDK (drivers\WMX3_Protocol). 별도 설치 제품이라 미설치 PC 에서도 빌드되어야 한다.
+    설치돼 있으면 include/lib 경로를 붙이고, 어댑터 .cpp 는 __has_include(<WMX3Api.h>) 로
+    실제 구현을 컴파일한다(미설치 시에는 SdkNotInstalled 를 반환하는 스텁이 컴파일됨).
+    설치 경로가 다르면 Wmx3Root 를 /p:Wmx3Root=... 또는 환경변수로 덮어쓸 것.
+  -->
+  <PropertyGroup Label="Wmx3Sdk">
+    <Wmx3Root Condition="'$(Wmx3Root)'==''">C:\Program Files\SoftServo\WMX3\</Wmx3Root>
+    <Wmx3Available>false</Wmx3Available>
+    <Wmx3Available Condition="Exists('$(Wmx3Root)Include\WMX3Api.h')">true</Wmx3Available>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Wmx3Available)'=='true'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(Wmx3Root)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(Wmx3Root)Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -140,6 +159,8 @@
     <ClInclude Include="src\core\domain\IRecipeRepository.h" />
     <ClInclude Include="src\core\domain\IAlarmService.h" />
     <ClInclude Include="src\core\domain\AlarmService.h" />
+    <ClInclude Include="src\drivers\WMX3_Protocol\Wmx3IoProvider.h" />
+    <ClInclude Include="src\drivers\WMX3_Protocol\Wmx3MotionController.h" />
     <ClInclude Include="src\hal\IMotionController.h" />
     <ClInclude Include="src\hal\IIoProvider.h" />
     <ClInclude Include="src\hal\IVisionCamera.h" />
@@ -293,6 +314,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\drivers\WMX3_Protocol\Wmx3IoProvider.cpp" />
+    <ClCompile Include="src\drivers\WMX3_Protocol\Wmx3MotionController.cpp" />
     <ClCompile Include="src\ui_winui\pages\system\SystemViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\maintenance\MaintenanceViewModel.cpp" />
     <ClCompile Include="src\ui_winui\pages\maintenance\MaintenancePage.xaml.cpp">

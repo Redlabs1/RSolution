@@ -2,6 +2,7 @@
 
 WinUI 3 + C++/WinRT 데스크톱 애플리케이션. 반도체 제조 장비의 제어/감시 HMI.
 상세 설계 근거: `0.Doc/반도체 장비 제어 프로그램(C++) 상세 아키텍처 설계서.docx`
+WMX3 드라이버 이식 근거: `0.Doc/SoftServo WMX3 드라이버 통합 작업 보고서.docx`
 
 ## 빌드
 
@@ -44,6 +45,8 @@ src/
   simulator/               # SimulatedMotionController/IoProvider/HostGateway (하드웨어 없는 검증)
   drivers/
     MC_Protocol/           # 미쓰비시 PLC MC 프로토콜(3E 프레임) TCP 클라이언트 (McProtocolClient)
+    WMX3_Protocol/         # SoftServo WMX3 EtherCAT 어댑터
+                           #   Wmx3MotionController (IMotionController), Wmx3IoProvider (IIoProvider)
   host/                    # IHostGateway (SECS/GEM·MES)
   tests/                   # SelfTests — 격리된 자체 단위 테스트(Debug 빌드마다 자동 실행)
   ui_winui/                # WinUI 셸/페이지/뷰모델/서비스
@@ -70,7 +73,13 @@ src/
 - **TrendPage 실시간 그래프**: 외부 차트 라이브러리 없이 `Canvas`+`Polyline` 직접 그리기로 구현. 500ms 주기 `DispatcherTimer` 로 온도/압력 2계열 샘플링(최근 60개 스크롤), 각 계열 자체 min/max 로 정규화해 공용 캔버스 높이에 표시. **현재는 시뮬레이션 값**(사인파+노이즈) — 실제 `IIoProvider`/센서 연동은 TODO(설계서 5.1.7 Trace Manager).
 - **tests/SelfTests**: `RunSelfTests()` — AlarmCode/InterlockClass(순수 함수), `EquipmentStateMachine`(격리된 로컬 인스턴스, `Instance()` 미사용), `RecipeRepository`(임시 폴더, 정리함)를 검증. **전역 싱글톤을 건드리지 않아 실행 중인 앱 상태를 오염시키지 않음.** `App::OnLaunched` 에서 `_DEBUG` 빌드마다 자동 실행, 결과는 Debug 채널에 기록. (AlarmService 는 순수 싱글톤이라 격리 인스턴스 생성이 불가능해 self-test 대상에서 제외 — 정책 로직은 이 세션에서 실제 시나리오로 수동 검증됨.)
 - **MC_Protocol** (`drivers/MC_Protocol`): 미쓰비시 PLC MC 프로토콜(3E 프레임, 바이너리) TCP 클라이언트 `rs::drivers::McProtocolClient`. `Connect/Disconnect/IsConnected`, `LoopbackTest`(0x0619)/`ReadCpuName`(0x0101), 워드 `ReadWords/WriteWords`(0x0401/0x1401 sub 0x0000), 비트 `ReadBits/WriteBits`(sub 0x0001, 니블 패킹). 헤더는 Winsock 비의존(소켓은 `uintptr_t`), 트랜잭션 뮤텍스 직렬화, `Instance()` 전역 공유(페이지 전환에도 연결 유지), Tcpip 채널 로깅. **주의**: winsock2 사용을 위해 `pch.h` 최상단에서 `<winsock2.h>` 를 `<windows.h>` 보다 먼저 포함하도록 수정됨. ManualPage 에 연결/루프백/워드·비트 읽기쓰기 테스트 UI 연동(통신은 워커 스레드, UI 반영은 DispatcherQueue).
-- **인터페이스만 있는 것** (설계서 6.2): `IMotionController`/`IIoProvider`/`IVisionCamera`는 `simulator/` 구현만 있고 실제 벤더 어댑터(`drivers/`)는 없음. `IHostGateway`도 시뮬레이터만 있음(실제 SECS/GEM 스택 없음).
+- **WMX3** (`drivers/WMX3_Protocol`): SoftServo WMX3 EtherCAT 마스터 어댑터.
+  - `rs::drivers::Wmx3MotionController` (`IMotionController`): `Open/Close`(CreateDevice + Communicating 진입까지 재시도 + 옵션 파라미터 XML `ImportAndSetAll`), `Initialize`(홈 속도/인포지션 폭 반영), `EnableServo`/`Home`/`Move*`/`Stop`, 확장으로 `MoveAbsoluteEx/MoveRelativeEx`(가감속 시간 지정), `StartJog/StopJog/JogStep`, `AlarmReset`(축→앰프 순), `ClearHomeDone`, `EmergencyStop/ReleaseEmergencyStop/StopAll`, `WaitMoveDone`(알람·오프라인·리밋 감지 시 전 축 정지 후 에러), `GetDetail`(opState/homeState 문자열 포함), `SetSync/ResolveSync`, `CheckSlaves`(EtherCAT 슬레이브 Op 여부/이탈/온라인 수).
+  - `rs::drivers::Wmx3IoProvider` (`IIoProvider`): 비트 주소를 `port=addr/8`,`bit=addr%8` 로 분해해 `GetInBit/GetOutBit/SetOutBit`, 아날로그는 `Get/SetInOutAnalogDataInt`. WMX3 에 I/O 이벤트 콜백이 없어 `Subscribe` 는 폴링 워커(`std::jthread`, 기본 20ms, 첫 구독에 시작·마지막 해제에 정지)로 변화만 통지.
+  - 단위 규약: 위치 mm / 속도 mm/s / 가감속은 **시간(ms)**. SDK 내부 단위(µm)로는 축별 `Wmx3AxisParam::unitScale`(기본 1000) 로 환산. 축 파라미터는 전역 조회가 아니라 `SetAxisParam(axis, Wmx3AxisParam)` 으로 주입.
+  - **SDK 미설치 PC 에서도 빌드된다**: .cpp 가 `__has_include(<WMX3Api.h>)` 로 분기해 미설치 시 전 호출이 `wmx3_errc::SdkNotInstalled` 를 반환하는 스텁을 컴파일. vcxproj 의 `Wmx3Root`(기본 `C:\Program Files\SoftServo\WMX3\`)가 존재하면 include/lib 경로가 자동으로 붙는다(설치 경로가 다르면 `/p:Wmx3Root=...`). 헤더는 SDK 비의존(pimpl) — 설계서 6.4.4 Adapter 격리.
+  - 장비별 I/O 주소 맵은 아직 없음(대상 장비 확정 후 별도 매핑 파일로 작성). 선형 보간(`StartLinearIntplPos`)도 미구현.
+- **인터페이스만 있는 것** (설계서 6.2): `IVisionCamera`/`IHostGateway` 는 `simulator/` 구현만 있음(실제 SECS/GEM 스택·카메라 SDK 없음). `IMotionController`/`IIoProvider` 는 `drivers/WMX3_Protocol` 어댑터가 있으나 실제 하드웨어에서는 미검증.
 
 ## WinUI 주의사항 (해결 이력)
 
@@ -93,7 +102,8 @@ src/
 - [x] SECS/GEM 매핑(8.1) — `SimulatedHostGateway` 로 상태/알람/이벤트 보고, 레시피 송수신, 원격명령 매핑 구현
 - [x] 테스트 전략(12) — `tests/SelfTests` 로 레시피 검증·상태 전이 단위 테스트 자동화(Debug 빌드 시 실행)
 - [x] 알람 생명주기(5.1.5.2 Detected/Raised/Acknowledged/Cleared/Archived) + Reset 조건(5.1.5.6) — `AlarmService`(Raise/Acknowledge/Clear/Archive/CanReset/RequestReset) 구현, 실시나리오(미해소 시 Reset 거부 → Clear 후 허용 → 자동 Archive) 검증 완료
-- [ ] `drivers/` — 벤더 SDK 어댑터(HAL 구현체). **의도적 보류**: 실제 SDK가 없어 가짜 구현은 장식적 코드가 되므로, 벤더/장비 확정 후 `simulator/` 구현체를 대체하는 방식으로 진행
+- [x] `drivers/WMX3_Protocol` — SoftServo WMX3 어댑터(`Wmx3MotionController`/`Wmx3IoProvider`) 이식 완료. **미검증**: 개발 PC에 WMX3 SDK/EtherCAT 하드웨어가 없어 스텁 경로로만 빌드 확인됨 — SDK 설치 PC에서 실동작 검증 필요
+- [ ] `drivers/` — 그 외 벤더 SDK 어댑터(비전 카메라 등). 벤더/장비 확정 후 `simulator/` 구현체를 대체하는 방식으로 진행
 - [ ] SECS/GEM 실제 드라이버(현재는 시뮬레이터만), 호스트 통신 스레드 분리
 - [ ] 인터락 실시간 평가(5.1.5.5 — Real-time Loop/10~100ms/명령 실행 전/이벤트 기반 계층별 처리)는 아직 없음(`InterlockClass` 는 분류 데이터만 제공)
 - [ ] Reset 조건 중 축/출력 안전 상태 확인(5.1.5.6 나머지 2개 조건)은 HAL/모션 연동 필요 — 현재 `CanReset()` 은 알람 원인 해소 여부만 확인
